@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/compiler.dir/main.cc.o CMakeFiles/compiler.dir/driver.cc.o CMakeFiles/compiler.dir/scanner.cc.o CMakeFiles/compiler.dir/parser.cc.o -o compiler 
