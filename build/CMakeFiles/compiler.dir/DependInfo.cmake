@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/compiler/ast.cc" "CMakeFiles/compiler.dir/ast.cc.o" "gcc" "CMakeFiles/compiler.dir/ast.cc.o.d"
   "/home/compiler/driver.cc" "CMakeFiles/compiler.dir/driver.cc.o" "gcc" "CMakeFiles/compiler.dir/driver.cc.o.d"
   "/home/compiler/main.cc" "CMakeFiles/compiler.dir/main.cc.o" "gcc" "CMakeFiles/compiler.dir/main.cc.o.d"
+  "/home/compiler/node.cc" "CMakeFiles/compiler.dir/node.cc.o" "gcc" "CMakeFiles/compiler.dir/node.cc.o.d"
   "/home/compiler/build/parser.cc" "CMakeFiles/compiler.dir/parser.cc.o" "gcc" "CMakeFiles/compiler.dir/parser.cc.o.d"
   "/home/compiler/build/scanner.cc" "CMakeFiles/compiler.dir/scanner.cc.o" "gcc" "CMakeFiles/compiler.dir/scanner.cc.o.d"
   )

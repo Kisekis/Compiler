@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/main.cc.o -c /home/compiler/main.cc",
+  "file": "/home/compiler/main.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/driver.cc.o -c /home/compiler/driver.cc",
+  "file": "/home/compiler/driver.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/ast.cc.o -c /home/compiler/ast.cc",
+  "file": "/home/compiler/ast.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/node.cc.o -c /home/compiler/node.cc",
+  "file": "/home/compiler/node.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/scanner.cc.o -c /home/compiler/build/scanner.cc",
+  "file": "/home/compiler/build/scanner.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/parser.cc.o -c /home/compiler/build/parser.cc",
+  "file": "/home/compiler/build/parser.cc"
+}
+]

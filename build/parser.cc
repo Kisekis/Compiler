@@ -42,101 +42,14 @@
 
 
 // Unqualified %code blocks.
-#line 26 "parser.yy"
+#line 27 "parser.yy"
 
   #include "driver.hh"
-  enum node_type {non_end,end,int_node,string_node,float_node};
-  struct Node {
-      union {
-          int type_int;
-          float type_float;
-          std::string type_string;
-      }m_value;
-      enum node_type m_type;
-      int m_line_num;
-      std::string m_name;
-      struct Node* m_next;
-      struct Node* m_first_child;
-      struct Node* m_last_child;
-      struct Node* m_parent;
-      int m_children_num;
-      int m_layer;
-  };
-  struct Node* root = NULL;
-  struct Node* construct_node(int line_num, std::string name, enum node_type type) {
-    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
-    new_node->m_line_num = line_num;
-    new_node->m_name = name;
-    new_node->m_next = NULL;
-    new_node->m_first_child = NULL;
-    new_node->m_last_child = NULL;
-    new_node->m_children_num = 0;
-    new_node->m_layer = 0;
-    new_node->m_parent = NULL;
-    new_node->m_type = type;
-    return new_node;
-}
+  #include "ast.hh"
+  #include "node.hh"
+  AST* ast;
 
-  void add_child(struct Node* parent, struct Node* child) {
-      if(child == NULL) return;
-      if(parent->m_first_child == NULL) {
-          parent->m_first_child = child;
-          parent->m_last_child = child;
-      }else {
-          parent->m_last_child->m_next = child;
-          parent->m_last_child = child;
-      }
-      parent->m_children_num++;
-      // parent->layer = child->layer+1;
-      child->m_parent = parent;
-  }
-  void print_tree(struct Node* node) {
-      if(node == NULL) {
-          return;
-      }
-      struct Node* cur = node;
-      while(cur!=NULL) {
-          if(cur!=root) {
-              cur->m_layer = cur->m_parent->m_layer+1;
-              for(int i = 0;i<cur->m_layer;i++) {
-                  printf("  ");
-              }
-          }
-          std::cout<<cur->m_name;
-          switch(cur->m_type) {
-              case non_end:
-                  printf(" (%d)", cur->m_line_num);
-                  break;
-              case end:
-                  break;
-              case int_node:
-                  printf(": %d", cur->m_value.type_int);
-                  break;
-              case float_node:
-                  printf(": %f", cur->m_value.type_float);
-                  break;
-              case string_node:
-                  printf(": %s", cur->m_value.type_string.c_str());
-                  break;
-          }
-          printf(" \n");
-          print_tree(cur->m_first_child);
-          cur = cur->m_next;
-      }
-  }
-  void delete_tree(struct Node* root) {
-      if(root == NULL) {
-          return;
-      }
-      struct Node* cur = root->m_first_child;
-      while(cur!=NULL) {
-          delete_tree(cur);
-          cur = cur->m_next;
-      }
-      free(root);
-  }
-
-#line 140 "/home/compiler/build/parser.cc"
+#line 53 "/home/compiler/build/parser.cc"
 
 
 #ifndef YY_
@@ -228,7 +141,7 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 namespace yy {
-#line 232 "/home/compiler/build/parser.cc"
+#line 145 "/home/compiler/build/parser.cc"
 
   /// Build a parser object.
   parser::parser (driver& drv_yyarg)
@@ -526,153 +439,153 @@ namespace yy {
         switch (yykind)
     {
       case symbol_kind::S_INT: // "int"
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < int > (); }
-#line 532 "/home/compiler/build/parser.cc"
+#line 445 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_FLOAT: // "float"
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < float > (); }
-#line 538 "/home/compiler/build/parser.cc"
+#line 451 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_ID: // ID
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < std::string > (); }
-#line 544 "/home/compiler/build/parser.cc"
+#line 457 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_TYPE: // TYPE
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < std::string > (); }
-#line 550 "/home/compiler/build/parser.cc"
+#line 463 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Program: // Program
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 556 "/home/compiler/build/parser.cc"
+#line 469 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_ExtDefList: // ExtDefList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 562 "/home/compiler/build/parser.cc"
+#line 475 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_ExtDef: // ExtDef
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 568 "/home/compiler/build/parser.cc"
+#line 481 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_ExtDecList: // ExtDecList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 574 "/home/compiler/build/parser.cc"
+#line 487 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Specifier: // Specifier
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 580 "/home/compiler/build/parser.cc"
+#line 493 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_StructSpecifier: // StructSpecifier
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 586 "/home/compiler/build/parser.cc"
+#line 499 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_OptTag: // OptTag
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 592 "/home/compiler/build/parser.cc"
+#line 505 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Tag: // Tag
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 598 "/home/compiler/build/parser.cc"
+#line 511 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_VarDec: // VarDec
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 604 "/home/compiler/build/parser.cc"
+#line 517 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_FunDec: // FunDec
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 610 "/home/compiler/build/parser.cc"
+#line 523 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_VarList: // VarList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 616 "/home/compiler/build/parser.cc"
+#line 529 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_ParamDec: // ParamDec
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 622 "/home/compiler/build/parser.cc"
+#line 535 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_CompSt: // CompSt
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 628 "/home/compiler/build/parser.cc"
+#line 541 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_StmtList: // StmtList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 634 "/home/compiler/build/parser.cc"
+#line 547 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Stmt: // Stmt
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 640 "/home/compiler/build/parser.cc"
+#line 553 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_DefList: // DefList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 646 "/home/compiler/build/parser.cc"
+#line 559 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Def: // Def
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 652 "/home/compiler/build/parser.cc"
+#line 565 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_DecList: // DecList
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 658 "/home/compiler/build/parser.cc"
+#line 571 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Dec: // Dec
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 664 "/home/compiler/build/parser.cc"
+#line 577 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Exp: // Exp
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 670 "/home/compiler/build/parser.cc"
+#line 583 "/home/compiler/build/parser.cc"
         break;
 
       case symbol_kind::S_Args: // Args
-#line 129 "parser.yy"
+#line 43 "parser.yy"
                  { yyo << yysym.value.template as < Node* > (); }
-#line 676 "/home/compiler/build/parser.cc"
+#line 589 "/home/compiler/build/parser.cc"
         break;
 
       default:
@@ -970,935 +883,935 @@ namespace yy {
           switch (yyn)
             {
   case 2: // Program: ExtDefList
-#line 152 "parser.yy"
+#line 66 "parser.yy"
                     {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Program",non_end);
-    root = new_node;
+    Node* new_node = new Node(yystack_[0].location.begin.line,"Program",Node::non_end,1);
+    ast = new AST(new_node);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
 }
-#line 981 "/home/compiler/build/parser.cc"
+#line 894 "/home/compiler/build/parser.cc"
     break;
 
   case 3: // ExtDefList: ExtDef ExtDefList
-#line 158 "parser.yy"
+#line 72 "parser.yy"
                               {
-    struct Node* new_node = construct_node(yystack_[1].location.begin.line,"ExtDefList",non_end);
+    struct Node* new_node = new Node(yystack_[1].location.begin.line,"ExtDefList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),2);
 }
-#line 992 "/home/compiler/build/parser.cc"
+#line 905 "/home/compiler/build/parser.cc"
     break;
 
   case 4: // ExtDefList: %empty
-#line 164 "parser.yy"
+#line 78 "parser.yy"
                {
         yylhs.value.as < Node* > () = NULL;
     }
-#line 1000 "/home/compiler/build/parser.cc"
+#line 913 "/home/compiler/build/parser.cc"
     break;
 
   case 5: // ExtDef: Specifier ExtDecList SEMI
-#line 168 "parser.yy"
+#line 82 "parser.yy"
                                   {
-    struct Node* new_node = construct_node(yystack_[2].location.begin.line,"ExtDef",non_end);
-    struct Node* SEMI_node = construct_node(yystack_[0].location.begin.line,"SEMI",end);
+    struct Node* new_node = new Node(yystack_[2].location.begin.line,"ExtDef",Node::non_end,1);
+    struct Node* SEMI_node = new Node(yystack_[0].location.begin.line,"SEMI",Node::end);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),SEMI_node);
+    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),2);
+    add_child(yylhs.value.as < Node* > (),SEMI_node,3);
 }
-#line 1013 "/home/compiler/build/parser.cc"
+#line 926 "/home/compiler/build/parser.cc"
     break;
 
   case 6: // ExtDef: Specifier SEMI
-#line 176 "parser.yy"
+#line 90 "parser.yy"
                      {
-        struct Node* new_node = construct_node(yystack_[1].location.begin.line,"ExtDef",non_end);
-        struct Node* SEMI_node = construct_node(yystack_[0].location.begin.line,"SEMI",end);
+        struct Node* new_node = new Node(yystack_[1].location.begin.line,"ExtDef",Node::non_end,2);
+        struct Node* SEMI_node = new Node(yystack_[0].location.begin.line,"SEMI",Node::end);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),SEMI_node);
+        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (),SEMI_node,2);
     }
-#line 1025 "/home/compiler/build/parser.cc"
+#line 938 "/home/compiler/build/parser.cc"
     break;
 
   case 7: // ExtDef: Specifier FunDec CompSt
-#line 183 "parser.yy"
+#line 97 "parser.yy"
                               {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"ExtDef",non_end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"ExtDef",Node::non_end,3);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),2);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),3);
     }
-#line 1037 "/home/compiler/build/parser.cc"
+#line 950 "/home/compiler/build/parser.cc"
     break;
 
   case 8: // ExtDef: Specifier error
-#line 190 "parser.yy"
+#line 104 "parser.yy"
                       {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "delcaration error");}
-#line 1043 "/home/compiler/build/parser.cc"
+#line 956 "/home/compiler/build/parser.cc"
     break;
 
   case 9: // ExtDecList: VarDec
-#line 192 "parser.yy"
+#line 106 "parser.yy"
                     {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"ExtDecList",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"ExtDecList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
 }
-#line 1053 "/home/compiler/build/parser.cc"
+#line 966 "/home/compiler/build/parser.cc"
     break;
 
   case 10: // ExtDecList: VarDec COMMA ExtDecList
-#line 197 "parser.yy"
+#line 111 "parser.yy"
                               {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"ExtDecList",non_end);
-        struct Node* COMMA_node = construct_node(yystack_[1].location.begin.line,"COMMA",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"ExtDecList",Node::non_end,2);
+        struct Node* COMMA_node = new Node(yystack_[1].location.begin.line,"COMMA",Node::end);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),COMMA_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (),COMMA_node,2);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),3);
     }
-#line 1066 "/home/compiler/build/parser.cc"
+#line 979 "/home/compiler/build/parser.cc"
     break;
 
   case 11: // ExtDecList: VarDec COMMA error
-#line 205 "parser.yy"
+#line 119 "parser.yy"
                          {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "delcaration error");}
-#line 1072 "/home/compiler/build/parser.cc"
+#line 985 "/home/compiler/build/parser.cc"
     break;
 
   case 12: // Specifier: TYPE
-#line 207 "parser.yy"
+#line 121 "parser.yy"
                  {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Specifier",non_end);
-    struct Node* TYPE_node = construct_node(yystack_[0].location.begin.line,"TYPE",string_node);
-    TYPE_node->m_value.type_string = yystack_[0].value.as < std::string > ();
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"Specifier",Node::non_end,1);
+    struct Node* TYPE_node = new Node(yystack_[0].location.begin.line,"TYPE",Node::string_node);
+    TYPE_node->type_string = yystack_[0].value.as < std::string > ();
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),TYPE_node);
+    add_child(yylhs.value.as < Node* > (),TYPE_node,1);
 }
-#line 1084 "/home/compiler/build/parser.cc"
+#line 997 "/home/compiler/build/parser.cc"
     break;
 
   case 13: // Specifier: StructSpecifier
-#line 214 "parser.yy"
+#line 128 "parser.yy"
                       {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Specifier",non_end);
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Specifier",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
     }
-#line 1094 "/home/compiler/build/parser.cc"
+#line 1007 "/home/compiler/build/parser.cc"
     break;
 
   case 14: // StructSpecifier: STRUCT OptTag LC DefList RC
-#line 220 "parser.yy"
+#line 134 "parser.yy"
                                               {
-    struct Node* new_node = construct_node(yystack_[4].location.begin.line,"StructSpecifier",non_end);
+    struct Node* new_node = new Node(yystack_[4].location.begin.line,"StructSpecifier",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* STRUCT_node = construct_node(yystack_[4].location.begin.line,"STRUCT",end);
-    struct Node* LC_node = construct_node(yystack_[2].location.begin.line,"LC",end);
-    struct Node* RC_node = construct_node(yystack_[0].location.begin.line,"RC",end);
-    add_child(yylhs.value.as < Node* > (),STRUCT_node);
-    add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),LC_node);
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),RC_node);
+    struct Node* STRUCT_node = new Node(yystack_[4].location.begin.line,"STRUCT",Node::end);
+    struct Node* LC_node = new Node(yystack_[2].location.begin.line,"LC",Node::end);
+    struct Node* RC_node = new Node(yystack_[0].location.begin.line,"RC",Node::end);
+    add_child(yylhs.value.as < Node* > (),STRUCT_node,1);
+    add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > (),2);
+    add_child(yylhs.value.as < Node* > (),LC_node,3);
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),4);
+    add_child(yylhs.value.as < Node* > (),RC_node,5);
 }
-#line 1111 "/home/compiler/build/parser.cc"
+#line 1024 "/home/compiler/build/parser.cc"
     break;
 
   case 15: // StructSpecifier: STRUCT Tag
-#line 232 "parser.yy"
+#line 146 "parser.yy"
                  {
-        struct Node* new_node = construct_node(yystack_[1].location.begin.line,"StructSpecifier",non_end);
+        struct Node* new_node = new Node(yystack_[1].location.begin.line,"StructSpecifier",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        struct Node* STRUCT_node = construct_node(yystack_[1].location.begin.line,"STRUCT",end);
-        add_child(yylhs.value.as < Node* > (),STRUCT_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        struct Node* STRUCT_node = new Node(yystack_[1].location.begin.line,"STRUCT",Node::end);
+        add_child(yylhs.value.as < Node* > (),STRUCT_node,1);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),2);
     }
-#line 1123 "/home/compiler/build/parser.cc"
+#line 1036 "/home/compiler/build/parser.cc"
     break;
 
   case 16: // StructSpecifier: STRUCT OptTag LC error RC
-#line 239 "parser.yy"
+#line 153 "parser.yy"
                                {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[4].location.begin.line, "struct error");}
-#line 1129 "/home/compiler/build/parser.cc"
+#line 1042 "/home/compiler/build/parser.cc"
     break;
 
   case 17: // OptTag: ID
-#line 241 "parser.yy"
+#line 155 "parser.yy"
            {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"OptTag",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"OptTag",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* ID_node = construct_node(yystack_[0].location.begin.line,"ID",string_node);
-    ID_node->m_value.type_string = yystack_[0].value.as < std::string > ();
-    add_child(yylhs.value.as < Node* > (),ID_node);
+    struct Node* ID_node = new Node(yystack_[0].location.begin.line,"ID",Node::string_node);
+    ID_node->type_string = yystack_[0].value.as < std::string > ();
+    add_child(yylhs.value.as < Node* > (),ID_node,1);
 }
-#line 1141 "/home/compiler/build/parser.cc"
+#line 1054 "/home/compiler/build/parser.cc"
     break;
 
   case 18: // OptTag: %empty
-#line 248 "parser.yy"
+#line 162 "parser.yy"
                {
         yylhs.value.as < Node* > () = NULL;
     }
-#line 1149 "/home/compiler/build/parser.cc"
+#line 1062 "/home/compiler/build/parser.cc"
     break;
 
   case 19: // Tag: ID
-#line 252 "parser.yy"
+#line 166 "parser.yy"
         {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Tag",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"Tag",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* ID_node = construct_node(yystack_[0].location.begin.line,"ID",string_node);
-    ID_node->m_value.type_string = yystack_[0].value.as < std::string > ();
-    add_child(yylhs.value.as < Node* > (),ID_node);
+    struct Node* ID_node = new Node(yystack_[0].location.begin.line,"ID",Node::string_node);
+    ID_node->type_string = yystack_[0].value.as < std::string > ();
+    add_child(yylhs.value.as < Node* > (),ID_node,1);
 }
-#line 1161 "/home/compiler/build/parser.cc"
+#line 1074 "/home/compiler/build/parser.cc"
     break;
 
   case 20: // VarDec: ID
-#line 261 "parser.yy"
+#line 175 "parser.yy"
             {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"VarDec",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"VarDec",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* ID_node = construct_node(yystack_[0].location.begin.line,"ID",string_node);
-    ID_node->m_value.type_string = yystack_[0].value.as < std::string > ();
-    add_child(yylhs.value.as < Node* > (),ID_node);
+    struct Node* ID_node = new Node(yystack_[0].location.begin.line,"ID",Node::string_node);
+    ID_node->type_string = yystack_[0].value.as < std::string > ();
+    add_child(yylhs.value.as < Node* > (),ID_node,1);
 }
-#line 1173 "/home/compiler/build/parser.cc"
+#line 1086 "/home/compiler/build/parser.cc"
     break;
 
   case 21: // VarDec: VarDec LB "int" RB
-#line 268 "parser.yy"
+#line 182 "parser.yy"
                        {
-        struct Node* new_node = construct_node(yystack_[3].location.begin.line,"VarDec",non_end);
+        struct Node* new_node = new Node(yystack_[3].location.begin.line,"VarDec",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        struct Node* LB_node = construct_node(yystack_[2].location.begin.line,"LB",end);
-        struct Node* INT_node = construct_node(yystack_[1].location.begin.line,"INT",int_node);
-        INT_node->m_value.type_int = yystack_[1].value.as < int > ();
-        struct Node* RB_node = construct_node(yystack_[0].location.begin.line,"RB",end);
-        add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), LB_node);
-        add_child(yylhs.value.as < Node* > (),INT_node);
-        add_child(yylhs.value.as < Node* > (),RB_node);
+        struct Node* LB_node = new Node(yystack_[2].location.begin.line,"LB",Node::end);
+        struct Node* int_node = new Node(yystack_[1].location.begin.line,"INT",Node::int_node);
+        int_node->type_int = yystack_[1].value.as < int > ();
+        struct Node* RB_node = new Node(yystack_[0].location.begin.line,"RB",Node::end);
+        add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), LB_node,2);
+        add_child(yylhs.value.as < Node* > (),int_node,3);
+        add_child(yylhs.value.as < Node* > (),RB_node,4);
     }
-#line 1190 "/home/compiler/build/parser.cc"
+#line 1103 "/home/compiler/build/parser.cc"
     break;
 
   case 22: // VarDec: VarDec LB error RB
-#line 280 "parser.yy"
+#line 194 "parser.yy"
                          {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[3].location.begin.line, "wrong variable declaration");}
-#line 1196 "/home/compiler/build/parser.cc"
+#line 1109 "/home/compiler/build/parser.cc"
     break;
 
   case 23: // FunDec: ID LP VarList RP
-#line 282 "parser.yy"
+#line 196 "parser.yy"
                           {
-    struct Node* new_node = construct_node(yystack_[3].location.begin.line,"FunDec",non_end);
+    struct Node* new_node = new Node(yystack_[3].location.begin.line,"FunDec",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* ID_node = construct_node(yystack_[3].location.begin.line,"ID",string_node);
-    ID_node->m_value.type_string = yystack_[3].value.as < std::string > ();
-    struct Node* LP_node = construct_node(yystack_[2].location.begin.line,"LP",end);
-    struct Node* RP_node = construct_node(yystack_[0].location.begin.line,"RP",end);
-    add_child(yylhs.value.as < Node* > (),ID_node);
-    add_child(yylhs.value.as < Node* > (), LP_node);
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),RP_node);
+    struct Node* ID_node = new Node(yystack_[3].location.begin.line,"ID",Node::string_node);
+    ID_node->type_string = yystack_[3].value.as < std::string > ();
+    struct Node* LP_node = new Node(yystack_[2].location.begin.line,"LP",Node::end);
+    struct Node* RP_node = new Node(yystack_[0].location.begin.line,"RP",Node::end);
+    add_child(yylhs.value.as < Node* > (),ID_node,1);
+    add_child(yylhs.value.as < Node* > (), LP_node,2);
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),3);
+    add_child(yylhs.value.as < Node* > (),RP_node,4);
 }
-#line 1213 "/home/compiler/build/parser.cc"
+#line 1126 "/home/compiler/build/parser.cc"
     break;
 
   case 24: // FunDec: ID LP RP
-#line 294 "parser.yy"
+#line 208 "parser.yy"
                {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"FunDec",non_end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"FunDec",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        struct Node* ID_node = construct_node(yystack_[2].location.begin.line,"ID",string_node);
-        ID_node->m_value.type_string = yystack_[2].value.as < std::string > ();
-        struct Node* LP_node = construct_node(yystack_[1].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[0].location.begin.line,"RP",end);
-        add_child(yylhs.value.as < Node* > (),ID_node);
-        add_child(yylhs.value.as < Node* > (), LP_node);
-        add_child(yylhs.value.as < Node* > (),RP_node);
+        struct Node* ID_node = new Node(yystack_[2].location.begin.line,"ID",Node::string_node);
+        ID_node->type_string = yystack_[2].value.as < std::string > ();
+        struct Node* LP_node = new Node(yystack_[1].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[0].location.begin.line,"RP",Node::end);
+        add_child(yylhs.value.as < Node* > (),ID_node,1);
+        add_child(yylhs.value.as < Node* > (), LP_node,2);
+        add_child(yylhs.value.as < Node* > (),RP_node,3);
     }
-#line 1229 "/home/compiler/build/parser.cc"
+#line 1142 "/home/compiler/build/parser.cc"
     break;
 
   case 25: // VarList: ParamDec COMMA VarList
-#line 306 "parser.yy"
+#line 220 "parser.yy"
                                  {
-    struct Node* new_node = construct_node(yystack_[2].location.begin.line,"VarList",non_end);
+    struct Node* new_node = new Node(yystack_[2].location.begin.line,"VarList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* COMMA_node = construct_node(yystack_[1].location.begin.line,"COMMA",end);
-    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (), COMMA_node);
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    struct Node* COMMA_node = new Node(yystack_[1].location.begin.line,"COMMA",Node::end);
+    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (), COMMA_node,2);
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),3);
 }
-#line 1242 "/home/compiler/build/parser.cc"
+#line 1155 "/home/compiler/build/parser.cc"
     break;
 
   case 26: // VarList: ParamDec
-#line 314 "parser.yy"
+#line 228 "parser.yy"
                {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"VarList",non_end);
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"VarList",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
     }
-#line 1252 "/home/compiler/build/parser.cc"
+#line 1165 "/home/compiler/build/parser.cc"
     break;
 
   case 27: // ParamDec: Specifier VarDec
-#line 320 "parser.yy"
+#line 234 "parser.yy"
                             {
-    struct Node* new_node = construct_node(yystack_[1].location.begin.line,"ParamDec",non_end);
+    struct Node* new_node = new Node(yystack_[1].location.begin.line,"ParamDec",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),2);
 }
-#line 1263 "/home/compiler/build/parser.cc"
+#line 1176 "/home/compiler/build/parser.cc"
     break;
 
   case 28: // CompSt: LC DefList StmtList RC
-#line 328 "parser.yy"
+#line 242 "parser.yy"
                                 {
-    struct Node* new_node = construct_node(yystack_[3].location.begin.line,"CompSt",non_end);
+    struct Node* new_node = new Node(yystack_[3].location.begin.line,"CompSt",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    struct Node* LC_node = construct_node(yystack_[3].location.begin.line,"LC",end);
-    struct Node* RC_node = construct_node(yystack_[0].location.begin.line,"RC",end);
-    add_child(yylhs.value.as < Node* > (),LC_node);
-    add_child(yylhs.value.as < Node* > (), yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),RC_node);
+    struct Node* LC_node = new Node(yystack_[3].location.begin.line,"LC",Node::end);
+    struct Node* RC_node = new Node(yystack_[0].location.begin.line,"RC",Node::end);
+    add_child(yylhs.value.as < Node* > (),LC_node,1);
+    add_child(yylhs.value.as < Node* > (), yystack_[2].value.as < Node* > (),2);
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),3);
+    add_child(yylhs.value.as < Node* > (),RC_node,4);
 }
-#line 1278 "/home/compiler/build/parser.cc"
+#line 1191 "/home/compiler/build/parser.cc"
     break;
 
   case 29: // CompSt: error DefList StmtList RC
-#line 338 "parser.yy"
+#line 252 "parser.yy"
                                 {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[3].location.begin.line, "Missing {");}
-#line 1284 "/home/compiler/build/parser.cc"
+#line 1197 "/home/compiler/build/parser.cc"
     break;
 
   case 30: // StmtList: Stmt StmtList
-#line 340 "parser.yy"
+#line 254 "parser.yy"
                          {
-    struct Node* new_node = construct_node(yystack_[1].location.begin.line,"StmtList",non_end);
+    struct Node* new_node = new Node(yystack_[1].location.begin.line,"StmtList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),2);
 }
-#line 1295 "/home/compiler/build/parser.cc"
+#line 1208 "/home/compiler/build/parser.cc"
     break;
 
   case 31: // StmtList: %empty
-#line 346 "parser.yy"
+#line 260 "parser.yy"
                 {
         yylhs.value.as < Node* > () = NULL;
     }
-#line 1303 "/home/compiler/build/parser.cc"
+#line 1216 "/home/compiler/build/parser.cc"
     break;
 
   case 32: // Stmt: Exp SEMI
-#line 350 "parser.yy"
+#line 264 "parser.yy"
                {
-    struct Node* new_node = construct_node(yystack_[1].location.begin.line,"Stmt",non_end);
-    struct Node* SEMI_node = construct_node(yystack_[0].location.begin.line,"SEMI",end);
+    struct Node* new_node = new Node(yystack_[1].location.begin.line,"Stmt",Node::non_end,1);
+    struct Node* SEMI_node = new Node(yystack_[0].location.begin.line,"SEMI",Node::end);
     yylhs.value.as < Node* > () = new_node;
-    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),SEMI_node);
+    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),SEMI_node,2);
 }
-#line 1315 "/home/compiler/build/parser.cc"
+#line 1228 "/home/compiler/build/parser.cc"
     break;
 
   case 33: // Stmt: error SEMI
-#line 357 "parser.yy"
+#line 271 "parser.yy"
                  {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "wrong expression");}
-#line 1321 "/home/compiler/build/parser.cc"
+#line 1234 "/home/compiler/build/parser.cc"
     break;
 
   case 34: // Stmt: Exp error
-#line 358 "parser.yy"
+#line 272 "parser.yy"
                 {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "Missing ;");}
-#line 1327 "/home/compiler/build/parser.cc"
+#line 1240 "/home/compiler/build/parser.cc"
     break;
 
   case 35: // Stmt: CompSt
-#line 359 "parser.yy"
+#line 273 "parser.yy"
             {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Stmt",non_end);
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Stmt",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),1);
     }
-#line 1337 "/home/compiler/build/parser.cc"
+#line 1250 "/home/compiler/build/parser.cc"
     break;
 
   case 36: // Stmt: RETURN Exp SEMI
-#line 364 "parser.yy"
+#line 278 "parser.yy"
                       {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Stmt",non_end);
-        struct Node* RETURN_node = construct_node(yystack_[2].location.begin.line,"RETURN",end);
-        struct Node* SEMI_node = construct_node(yystack_[0].location.begin.line,"SEMI",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Stmt",Node::non_end,3);
+        struct Node* RETURN_node = new Node(yystack_[2].location.begin.line,"RETURN",Node::end);
+        struct Node* SEMI_node = new Node(yystack_[0].location.begin.line,"SEMI",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),RETURN_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),SEMI_node);
+        add_child(yylhs.value.as < Node* > (),RETURN_node,1);
+        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),2);
+        add_child(yylhs.value.as < Node* > (),SEMI_node,3);
     }
-#line 1352 "/home/compiler/build/parser.cc"
+#line 1265 "/home/compiler/build/parser.cc"
     break;
 
   case 37: // Stmt: RETURN Exp error
-#line 374 "parser.yy"
+#line 288 "parser.yy"
                        {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Missing ;");}
-#line 1358 "/home/compiler/build/parser.cc"
+#line 1271 "/home/compiler/build/parser.cc"
     break;
 
   case 38: // Stmt: RETURN error SEMI
-#line 375 "parser.yy"
+#line 289 "parser.yy"
                         {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong return expression");}
-#line 1364 "/home/compiler/build/parser.cc"
+#line 1277 "/home/compiler/build/parser.cc"
     break;
 
   case 39: // Stmt: IF LP Exp RP Stmt
-#line 376 "parser.yy"
+#line 290 "parser.yy"
                         {
-        struct Node* new_node = construct_node(yystack_[4].location.begin.line,"Stmt",non_end);
-        struct Node* IF_node = construct_node(yystack_[4].location.begin.line,"IF",end);
-        struct Node* LP_node = construct_node(yystack_[3].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[1].location.begin.line,"RP",end);
+        struct Node* new_node = new Node(yystack_[4].location.begin.line,"Stmt",Node::non_end,4);
+        struct Node* IF_node = new Node(yystack_[4].location.begin.line,"IF",Node::end);
+        struct Node* LP_node = new Node(yystack_[3].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[1].location.begin.line,"RP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),IF_node);
-        add_child(yylhs.value.as < Node* > (), LP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),RP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),IF_node,1);
+        add_child(yylhs.value.as < Node* > (), LP_node,2);
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),3);
+        add_child(yylhs.value.as < Node* > (),RP_node,4);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),5);
     }
-#line 1382 "/home/compiler/build/parser.cc"
+#line 1295 "/home/compiler/build/parser.cc"
     break;
 
   case 40: // Stmt: IF LP Exp RP Stmt ELSE Stmt
-#line 389 "parser.yy"
+#line 303 "parser.yy"
                                   {
-        struct Node* new_node = construct_node(yystack_[6].location.begin.line,"Stmt",non_end);
-        struct Node* IF_node = construct_node(yystack_[6].location.begin.line,"IF",end);
-        struct Node* LP_node = construct_node(yystack_[5].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[3].location.begin.line,"RP",end);
-        struct Node* ELSE_node = construct_node(yystack_[1].location.begin.line,"ELSE",end);
+        struct Node* new_node = new Node(yystack_[6].location.begin.line,"Stmt",Node::non_end,5);
+        struct Node* IF_node = new Node(yystack_[6].location.begin.line,"IF",Node::end);
+        struct Node* LP_node = new Node(yystack_[5].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[3].location.begin.line,"RP",Node::end);
+        struct Node* ELSE_node = new Node(yystack_[1].location.begin.line,"ELSE",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),IF_node);
-        add_child(yylhs.value.as < Node* > (), LP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[4].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),RP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),ELSE_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),IF_node,1);
+        add_child(yylhs.value.as < Node* > (), LP_node,2);
+        add_child(yylhs.value.as < Node* > (),yystack_[4].value.as < Node* > (),3);
+        add_child(yylhs.value.as < Node* > (),RP_node,4);
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),5);
+        add_child(yylhs.value.as < Node* > (),ELSE_node,6);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),7);
     }
-#line 1403 "/home/compiler/build/parser.cc"
+#line 1316 "/home/compiler/build/parser.cc"
     break;
 
   case 41: // Stmt: WHILE LP Exp RP Stmt
-#line 405 "parser.yy"
+#line 319 "parser.yy"
                            {
-        struct Node* new_node = construct_node(yystack_[4].location.begin.line,"Stmt",non_end);
-        struct Node* WHILE_node = construct_node(yystack_[4].location.begin.line,"WHILE",end);
-        struct Node* LP_node = construct_node(yystack_[3].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[1].location.begin.line,"RP",end);
+        struct Node* new_node = new Node(yystack_[4].location.begin.line,"Stmt",Node::non_end,6);
+        struct Node* WHILE_node = new Node(yystack_[4].location.begin.line,"WHILE",Node::end);
+        struct Node* LP_node = new Node(yystack_[3].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[1].location.begin.line,"RP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),WHILE_node);
-        add_child(yylhs.value.as < Node* > (), LP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),RP_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),WHILE_node,1);
+        add_child(yylhs.value.as < Node* > (), LP_node,2);
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),3);
+        add_child(yylhs.value.as < Node* > (),RP_node,4);
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),5);
     }
-#line 1421 "/home/compiler/build/parser.cc"
+#line 1334 "/home/compiler/build/parser.cc"
     break;
 
   case 42: // DefList: Def DefList
-#line 420 "parser.yy"
+#line 334 "parser.yy"
                       {
-    struct Node* new_node = construct_node(yystack_[1].location.begin.line,"DefList",non_end);
+    struct Node* new_node = new Node(yystack_[1].location.begin.line,"DefList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),2);
 }
-#line 1433 "/home/compiler/build/parser.cc"
+#line 1346 "/home/compiler/build/parser.cc"
     break;
 
   case 43: // DefList: %empty
-#line 427 "parser.yy"
+#line 341 "parser.yy"
                {
         yylhs.value.as < Node* > () = NULL;
     }
-#line 1441 "/home/compiler/build/parser.cc"
+#line 1354 "/home/compiler/build/parser.cc"
     break;
 
   case 44: // Def: Specifier DecList SEMI
-#line 431 "parser.yy"
+#line 345 "parser.yy"
                              {
-    struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Def",non_end);
-    struct Node* SEMI_node = construct_node(yystack_[0].location.begin.line,"SEMI",end);
+    struct Node* new_node = new Node(yystack_[2].location.begin.line,"Def",Node::non_end,1);
+    struct Node* SEMI_node = new Node(yystack_[0].location.begin.line,"SEMI",Node::end);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (), SEMI_node);
+    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),2);
+    add_child(yylhs.value.as < Node* > (), SEMI_node,2);
 }
-#line 1455 "/home/compiler/build/parser.cc"
+#line 1368 "/home/compiler/build/parser.cc"
     break;
 
   case 45: // Def: error DecList SEMI
-#line 440 "parser.yy"
+#line 354 "parser.yy"
                          {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong declaration");}
-#line 1461 "/home/compiler/build/parser.cc"
+#line 1374 "/home/compiler/build/parser.cc"
     break;
 
   case 46: // Def: Specifier error SEMI
-#line 441 "parser.yy"
+#line 355 "parser.yy"
                            {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong declaration");}
-#line 1467 "/home/compiler/build/parser.cc"
+#line 1380 "/home/compiler/build/parser.cc"
     break;
 
   case 47: // DecList: Dec
-#line 443 "parser.yy"
+#line 357 "parser.yy"
               {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"DecList",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"DecList",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
 }
-#line 1478 "/home/compiler/build/parser.cc"
+#line 1391 "/home/compiler/build/parser.cc"
     break;
 
   case 48: // DecList: Dec COMMA DecList
-#line 449 "parser.yy"
+#line 363 "parser.yy"
                         {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"DecList",non_end);
-        struct Node* COMMA_node = construct_node(yystack_[1].location.begin.line,"COMMA",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"DecList",Node::non_end);
+        struct Node* COMMA_node = new Node(yystack_[1].location.begin.line,"COMMA",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), COMMA_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), COMMA_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1492 "/home/compiler/build/parser.cc"
+#line 1405 "/home/compiler/build/parser.cc"
     break;
 
   case 49: // Dec: VarDec
-#line 459 "parser.yy"
+#line 373 "parser.yy"
              {
-    struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Dec",non_end);
+    struct Node* new_node = new Node(yystack_[0].location.begin.line,"Dec",Node::non_end,1);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
 }
-#line 1503 "/home/compiler/build/parser.cc"
+#line 1416 "/home/compiler/build/parser.cc"
     break;
 
   case 50: // Dec: VarDec ASSIGNOP Exp
-#line 465 "parser.yy"
+#line 379 "parser.yy"
                           {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Dec",non_end);
-        struct Node* ASSIGNOP_node = construct_node(yystack_[1].location.begin.line,"ASSIGNOP",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Dec",Node::non_end,2);
+        struct Node* ASSIGNOP_node = new Node(yystack_[1].location.begin.line,"ASSIGNOP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), ASSIGNOP_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), ASSIGNOP_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1517 "/home/compiler/build/parser.cc"
+#line 1430 "/home/compiler/build/parser.cc"
     break;
 
   case 51: // Dec: VarDec ASSIGNOP error
-#line 474 "parser.yy"
+#line 388 "parser.yy"
                             {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1523 "/home/compiler/build/parser.cc"
+#line 1436 "/home/compiler/build/parser.cc"
     break;
 
   case 52: // Exp: Exp ASSIGNOP Exp
-#line 477 "parser.yy"
+#line 391 "parser.yy"
                       {
-    struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-    struct Node* ASSIGNOP_node = construct_node(yystack_[1].location.begin.line,"ASSIGNOP",end);
+    struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,1);
+    struct Node* ASSIGNOP_node = new Node(yystack_[1].location.begin.line,"ASSIGNOP",Node::end);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (), ASSIGNOP_node);
-    add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (), ASSIGNOP_node,2);
+    add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
 }
-#line 1537 "/home/compiler/build/parser.cc"
+#line 1450 "/home/compiler/build/parser.cc"
     break;
 
   case 53: // Exp: Exp ASSIGNOP error
-#line 486 "parser.yy"
+#line 400 "parser.yy"
                          {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1543 "/home/compiler/build/parser.cc"
+#line 1456 "/home/compiler/build/parser.cc"
     break;
 
   case 54: // Exp: Exp AND Exp
-#line 487 "parser.yy"
+#line 401 "parser.yy"
                   {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* AND_node = construct_node(yystack_[1].location.begin.line,"AND",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,2);
+        struct Node* AND_node = new Node(yystack_[1].location.begin.line,"AND",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), AND_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), AND_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1557 "/home/compiler/build/parser.cc"
+#line 1470 "/home/compiler/build/parser.cc"
     break;
 
   case 55: // Exp: Exp AND error
-#line 496 "parser.yy"
+#line 410 "parser.yy"
                     {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1563 "/home/compiler/build/parser.cc"
+#line 1476 "/home/compiler/build/parser.cc"
     break;
 
   case 56: // Exp: Exp OR Exp
-#line 497 "parser.yy"
+#line 411 "parser.yy"
                  {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* OR_node = construct_node(yystack_[1].location.begin.line,"OR",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,3);
+        struct Node* OR_node = new Node(yystack_[1].location.begin.line,"OR",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), OR_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), OR_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1577 "/home/compiler/build/parser.cc"
+#line 1490 "/home/compiler/build/parser.cc"
     break;
 
   case 57: // Exp: Exp OR error
-#line 506 "parser.yy"
+#line 420 "parser.yy"
                    {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1583 "/home/compiler/build/parser.cc"
+#line 1496 "/home/compiler/build/parser.cc"
     break;
 
   case 58: // Exp: Exp RELOP Exp
-#line 507 "parser.yy"
+#line 421 "parser.yy"
                     {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* RELOP_node = construct_node(yystack_[1].location.begin.line,"RELOP",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,4);
+        struct Node* RELOP_node = new Node(yystack_[1].location.begin.line,"RELOP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), RELOP_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), RELOP_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1597 "/home/compiler/build/parser.cc"
+#line 1510 "/home/compiler/build/parser.cc"
     break;
 
   case 59: // Exp: Exp RELOP error
-#line 516 "parser.yy"
+#line 430 "parser.yy"
                       {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1603 "/home/compiler/build/parser.cc"
+#line 1516 "/home/compiler/build/parser.cc"
     break;
 
   case 60: // Exp: Exp PLUS Exp
-#line 517 "parser.yy"
+#line 431 "parser.yy"
                    {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* PLUS_node = construct_node(yystack_[1].location.begin.line,"PLUS",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,5);
+        struct Node* PLUS_node = new Node(yystack_[1].location.begin.line,"PLUS",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), PLUS_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), PLUS_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1617 "/home/compiler/build/parser.cc"
+#line 1530 "/home/compiler/build/parser.cc"
     break;
 
   case 61: // Exp: Exp PLUS error
-#line 526 "parser.yy"
+#line 440 "parser.yy"
                      {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1623 "/home/compiler/build/parser.cc"
+#line 1536 "/home/compiler/build/parser.cc"
     break;
 
   case 62: // Exp: Exp MINUS Exp
-#line 527 "parser.yy"
+#line 441 "parser.yy"
                     {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* MINUS_node = construct_node(yystack_[1].location.begin.line,"MINUS",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,6);
+        struct Node* MINUS_node = new Node(yystack_[1].location.begin.line,"MINUS",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), MINUS_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), MINUS_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1637 "/home/compiler/build/parser.cc"
+#line 1550 "/home/compiler/build/parser.cc"
     break;
 
   case 63: // Exp: Exp MINUS error
-#line 536 "parser.yy"
+#line 450 "parser.yy"
                       {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1643 "/home/compiler/build/parser.cc"
+#line 1556 "/home/compiler/build/parser.cc"
     break;
 
   case 64: // Exp: Exp STAR Exp
-#line 537 "parser.yy"
+#line 451 "parser.yy"
                    {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* STAR_node = construct_node(yystack_[1].location.begin.line,"STAR",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,7);
+        struct Node* STAR_node = new Node(yystack_[1].location.begin.line,"STAR",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), STAR_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), STAR_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1657 "/home/compiler/build/parser.cc"
+#line 1570 "/home/compiler/build/parser.cc"
     break;
 
   case 65: // Exp: Exp STAR error
-#line 546 "parser.yy"
+#line 460 "parser.yy"
                      {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1663 "/home/compiler/build/parser.cc"
+#line 1576 "/home/compiler/build/parser.cc"
     break;
 
   case 66: // Exp: Exp DIV Exp
-#line 547 "parser.yy"
+#line 461 "parser.yy"
                   {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* DIV_node = construct_node(yystack_[1].location.begin.line,"DIV",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,8);
+        struct Node* DIV_node = new Node(yystack_[1].location.begin.line,"DIV",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), DIV_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (), DIV_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),3);
     }
-#line 1677 "/home/compiler/build/parser.cc"
+#line 1590 "/home/compiler/build/parser.cc"
     break;
 
   case 67: // Exp: Exp DIV error
-#line 556 "parser.yy"
+#line 470 "parser.yy"
                     {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Wrong expression");}
-#line 1683 "/home/compiler/build/parser.cc"
+#line 1596 "/home/compiler/build/parser.cc"
     break;
 
   case 68: // Exp: LP Exp RP
-#line 557 "parser.yy"
+#line 471 "parser.yy"
                 {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* LP_node = construct_node(yystack_[2].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[0].location.begin.line,"RP",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,9);
+        struct Node* LP_node = new Node(yystack_[2].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[0].location.begin.line,"RP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),LP_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (), RP_node);
+        add_child(yylhs.value.as < Node* > (),LP_node,1);
+        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),2);
+        add_child(yylhs.value.as < Node* > (), RP_node,3);
     }
-#line 1698 "/home/compiler/build/parser.cc"
+#line 1611 "/home/compiler/build/parser.cc"
     break;
 
   case 69: // Exp: LP error
-#line 567 "parser.yy"
+#line 481 "parser.yy"
                {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "Missing )");}
-#line 1704 "/home/compiler/build/parser.cc"
+#line 1617 "/home/compiler/build/parser.cc"
     break;
 
   case 70: // Exp: MINUS Exp
-#line 568 "parser.yy"
+#line 482 "parser.yy"
                 {
-        struct Node* new_node = construct_node(yystack_[1].location.begin.line,"Exp",non_end);
-        struct Node* MINUS_node = construct_node(yystack_[1].location.begin.line,"MINUS",end);
+        struct Node* new_node = new Node(yystack_[1].location.begin.line,"Exp",Node::non_end,10);
+        struct Node* MINUS_node = new Node(yystack_[1].location.begin.line,"MINUS",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),MINUS_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),MINUS_node,1);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),2);
     }
-#line 1717 "/home/compiler/build/parser.cc"
+#line 1630 "/home/compiler/build/parser.cc"
     break;
 
   case 71: // Exp: MINUS error
-#line 576 "parser.yy"
+#line 490 "parser.yy"
                   {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "Wrong expression");}
-#line 1723 "/home/compiler/build/parser.cc"
+#line 1636 "/home/compiler/build/parser.cc"
     break;
 
   case 72: // Exp: NOT Exp
-#line 577 "parser.yy"
+#line 491 "parser.yy"
               {
-        struct Node* new_node = construct_node(yystack_[1].location.begin.line,"Exp",non_end);
-        struct Node* NOT_node = construct_node(yystack_[1].location.begin.line,"NOT",end);
+        struct Node* new_node = new Node(yystack_[1].location.begin.line,"Exp",Node::non_end,11);
+        struct Node* NOT_node = new Node(yystack_[1].location.begin.line,"NOT",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),NOT_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),NOT_node,1);
+        add_child(yylhs.value.as < Node* > (), yystack_[0].value.as < Node* > (),2);
     }
-#line 1736 "/home/compiler/build/parser.cc"
+#line 1649 "/home/compiler/build/parser.cc"
     break;
 
   case 73: // Exp: NOT error
-#line 585 "parser.yy"
+#line 499 "parser.yy"
                 {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "Wrong expression");}
-#line 1742 "/home/compiler/build/parser.cc"
+#line 1655 "/home/compiler/build/parser.cc"
     break;
 
   case 74: // Exp: ID LP Args RP
-#line 586 "parser.yy"
+#line 500 "parser.yy"
                     {
-        struct Node* new_node = construct_node(yystack_[3].location.begin.line,"Exp",non_end);
-        struct Node* ID_node = construct_node(yystack_[3].location.begin.line,"ID",string_node);
-        ID_node->m_value.type_string = yystack_[3].value.as < std::string > ();
-        struct Node* LP_node = construct_node(yystack_[2].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[0].location.begin.line,"RP",end);
+        struct Node* new_node = new Node(yystack_[3].location.begin.line,"Exp",Node::non_end,12);
+        struct Node* ID_node = new Node(yystack_[3].location.begin.line,"ID",Node::string_node);
+        ID_node->type_string = yystack_[3].value.as < std::string > ();
+        struct Node* LP_node = new Node(yystack_[2].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[0].location.begin.line,"RP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),ID_node);
-        add_child(yylhs.value.as < Node* > (),LP_node);
-        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),RP_node);
+        add_child(yylhs.value.as < Node* > (),ID_node,1);
+        add_child(yylhs.value.as < Node* > (),LP_node,2);
+        add_child(yylhs.value.as < Node* > (), yystack_[1].value.as < Node* > (),3);
+        add_child(yylhs.value.as < Node* > (),RP_node,4);
     }
-#line 1760 "/home/compiler/build/parser.cc"
+#line 1673 "/home/compiler/build/parser.cc"
     break;
 
   case 75: // Exp: ID LP Args error
-#line 599 "parser.yy"
+#line 513 "parser.yy"
                        {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[3].location.begin.line, "Missing )");}
-#line 1766 "/home/compiler/build/parser.cc"
+#line 1679 "/home/compiler/build/parser.cc"
     break;
 
   case 76: // Exp: ID LP RP
-#line 600 "parser.yy"
+#line 514 "parser.yy"
                {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* ID_node = construct_node(yystack_[2].location.begin.line,"ID",string_node);
-        ID_node->m_value.type_string = yystack_[2].value.as < std::string > ();
-        struct Node* LP_node = construct_node(yystack_[1].location.begin.line,"LP",end);
-        struct Node* RP_node = construct_node(yystack_[0].location.begin.line,"RP",end);
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,13);
+        struct Node* ID_node = new Node(yystack_[2].location.begin.line,"ID",Node::string_node);
+        ID_node->type_string = yystack_[2].value.as < std::string > ();
+        struct Node* LP_node = new Node(yystack_[1].location.begin.line,"LP",Node::end);
+        struct Node* RP_node = new Node(yystack_[0].location.begin.line,"RP",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),ID_node);
-        add_child(yylhs.value.as < Node* > (),LP_node);
-        add_child(yylhs.value.as < Node* > (),RP_node);
+        add_child(yylhs.value.as < Node* > (),ID_node,1);
+        add_child(yylhs.value.as < Node* > (),LP_node,2);
+        add_child(yylhs.value.as < Node* > (),RP_node,3);
     }
-#line 1783 "/home/compiler/build/parser.cc"
+#line 1696 "/home/compiler/build/parser.cc"
     break;
 
   case 77: // Exp: ID LP error
-#line 612 "parser.yy"
+#line 526 "parser.yy"
                   {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[2].location.begin.line, "Missing )");}
-#line 1789 "/home/compiler/build/parser.cc"
+#line 1702 "/home/compiler/build/parser.cc"
     break;
 
   case 78: // Exp: Exp LB Exp RB
-#line 613 "parser.yy"
+#line 527 "parser.yy"
                     {
-        struct Node* new_node = construct_node(yystack_[3].location.begin.line,"Exp",non_end);
-        struct Node* LB_node = construct_node(yystack_[2].location.begin.line,"LB",end);
-        struct Node* RB_node = construct_node(yystack_[0].location.begin.line,"RB",end);
+        struct Node* new_node = new Node(yystack_[3].location.begin.line,"Exp",Node::non_end,14);
+        struct Node* LB_node = new Node(yystack_[2].location.begin.line,"LB",Node::end);
+        struct Node* RB_node = new Node(yystack_[0].location.begin.line,"RB",Node::end);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),LB_node);
-        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),RB_node);
+        add_child(yylhs.value.as < Node* > (),yystack_[3].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (),LB_node,2);
+        add_child(yylhs.value.as < Node* > (),yystack_[1].value.as < Node* > (),3);
+        add_child(yylhs.value.as < Node* > (),RB_node,4);
     }
-#line 1805 "/home/compiler/build/parser.cc"
+#line 1718 "/home/compiler/build/parser.cc"
     break;
 
   case 79: // Exp: Exp LB error RB
-#line 624 "parser.yy"
+#line 538 "parser.yy"
                       {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[3].location.begin.line, "Wrong expression");}
-#line 1811 "/home/compiler/build/parser.cc"
+#line 1724 "/home/compiler/build/parser.cc"
     break;
 
   case 80: // Exp: Exp DOT ID
-#line 625 "parser.yy"
+#line 539 "parser.yy"
                  {
-        struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Exp",non_end);
-        struct Node* DOT_node = construct_node(yystack_[1].location.begin.line,"DOT",end);
-        struct Node* ID_node = construct_node(yystack_[0].location.begin.line,"ID",string_node);
-        ID_node->m_value.type_string = yystack_[0].value.as < std::string > ();
+        struct Node* new_node = new Node(yystack_[2].location.begin.line,"Exp",Node::non_end,15);
+        struct Node* DOT_node = new Node(yystack_[1].location.begin.line,"DOT",Node::end);
+        struct Node* ID_node = new Node(yystack_[0].location.begin.line,"ID",Node::string_node);
+        ID_node->type_string = yystack_[0].value.as < std::string > ();
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-        add_child(yylhs.value.as < Node* > (),DOT_node);
-        add_child(yylhs.value.as < Node* > (),ID_node);
+        add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+        add_child(yylhs.value.as < Node* > (),DOT_node,2);
+        add_child(yylhs.value.as < Node* > (),ID_node,3);
     }
-#line 1827 "/home/compiler/build/parser.cc"
+#line 1740 "/home/compiler/build/parser.cc"
     break;
 
   case 81: // Exp: ID
-#line 636 "parser.yy"
+#line 550 "parser.yy"
          {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Exp",non_end);
-        struct Node* ID_node = construct_node(yystack_[0].location.begin.line,"ID",string_node);
-        ID_node->m_value.type_string = yystack_[0].value.as < std::string > ();
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Exp",Node::non_end,16);
+        struct Node* ID_node = new Node(yystack_[0].location.begin.line,"ID",Node::string_node);
+        ID_node->type_string = yystack_[0].value.as < std::string > ();
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),ID_node);
+        add_child(yylhs.value.as < Node* > (),ID_node,1);
     }
-#line 1840 "/home/compiler/build/parser.cc"
+#line 1753 "/home/compiler/build/parser.cc"
     break;
 
   case 82: // Exp: "int"
-#line 644 "parser.yy"
+#line 558 "parser.yy"
           {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Exp",non_end);
-        struct Node* INT_node = construct_node(yystack_[0].location.begin.line,"INT",int_node);
-        INT_node->m_value.type_int = yystack_[0].value.as < int > ();
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Exp",Node::non_end,17);
+        struct Node* int_node = new Node(yystack_[0].location.begin.line,"INT",Node::int_node);
+        int_node->type_int = yystack_[0].value.as < int > ();
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),INT_node);
+        add_child(yylhs.value.as < Node* > (),int_node,1);
     }
-#line 1853 "/home/compiler/build/parser.cc"
+#line 1766 "/home/compiler/build/parser.cc"
     break;
 
   case 83: // Exp: "float"
-#line 652 "parser.yy"
+#line 566 "parser.yy"
             {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Exp",non_end);
-        struct Node* FLOAT_node = construct_node(yystack_[0].location.begin.line,"FLOAT",float_node);
-        FLOAT_node->m_value.type_float = yystack_[0].value.as < float > ();
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Exp",Node::non_end,18);
+        struct Node* float_node = new Node(yystack_[0].location.begin.line,"FLOAT",Node::float_node);
+        float_node->type_float = yystack_[0].value.as < float > ();
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),FLOAT_node);
+        add_child(yylhs.value.as < Node* > (),float_node,1);
 
     }
-#line 1867 "/home/compiler/build/parser.cc"
+#line 1780 "/home/compiler/build/parser.cc"
     break;
 
   case 84: // Exp: error RP
-#line 661 "parser.yy"
+#line 575 "parser.yy"
                {fprintf(stderr, "ERROR type B at Line %d: %s\n", yystack_[1].location.begin.line, "Wrong expression");}
-#line 1873 "/home/compiler/build/parser.cc"
+#line 1786 "/home/compiler/build/parser.cc"
     break;
 
   case 85: // Args: Exp COMMA Args
-#line 663 "parser.yy"
+#line 577 "parser.yy"
                       {
-    struct Node* new_node = construct_node(yystack_[2].location.begin.line,"Args",non_end);
-    struct Node* COMMA_node = construct_node(yystack_[1].location.begin.line,"COMMA",end);
+    struct Node* new_node = new Node(yystack_[2].location.begin.line,"Args",Node::non_end,1);
+    struct Node* COMMA_node = new Node(yystack_[1].location.begin.line,"COMMA",Node::end);
     yylhs.value.as < Node* > () = new_node;
     
-    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > ());
-    add_child(yylhs.value.as < Node* > (),COMMA_node);
-    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+    add_child(yylhs.value.as < Node* > (),yystack_[2].value.as < Node* > (),1);
+    add_child(yylhs.value.as < Node* > (),COMMA_node,2);
+    add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),3);
 }
-#line 1887 "/home/compiler/build/parser.cc"
+#line 1800 "/home/compiler/build/parser.cc"
     break;
 
   case 86: // Args: Exp
-#line 672 "parser.yy"
+#line 586 "parser.yy"
           {
-        struct Node* new_node = construct_node(yystack_[0].location.begin.line,"Args",non_end);
+        struct Node* new_node = new Node(yystack_[0].location.begin.line,"Args",Node::non_end,2);
         yylhs.value.as < Node* > () = new_node;
         
-        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > ());
+        add_child(yylhs.value.as < Node* > (),yystack_[0].value.as < Node* > (),1);
     }
-#line 1898 "/home/compiler/build/parser.cc"
+#line 1811 "/home/compiler/build/parser.cc"
     break;
 
 
-#line 1902 "/home/compiler/build/parser.cc"
+#line 1815 "/home/compiler/build/parser.cc"
 
             default:
               break;
@@ -2570,15 +2483,15 @@ namespace yy {
   const short
   parser::yyrline_[] =
   {
-       0,   152,   152,   158,   164,   168,   176,   183,   190,   192,
-     197,   205,   207,   214,   220,   232,   239,   241,   248,   252,
-     261,   268,   280,   282,   294,   306,   314,   320,   328,   338,
-     340,   346,   350,   357,   358,   359,   364,   374,   375,   376,
-     389,   405,   420,   427,   431,   440,   441,   443,   449,   459,
-     465,   474,   477,   486,   487,   496,   497,   506,   507,   516,
-     517,   526,   527,   536,   537,   546,   547,   556,   557,   567,
-     568,   576,   577,   585,   586,   599,   600,   612,   613,   624,
-     625,   636,   644,   652,   661,   663,   672
+       0,    66,    66,    72,    78,    82,    90,    97,   104,   106,
+     111,   119,   121,   128,   134,   146,   153,   155,   162,   166,
+     175,   182,   194,   196,   208,   220,   228,   234,   242,   252,
+     254,   260,   264,   271,   272,   273,   278,   288,   289,   290,
+     303,   319,   334,   341,   345,   354,   355,   357,   363,   373,
+     379,   388,   391,   400,   401,   410,   411,   420,   421,   430,
+     431,   440,   441,   450,   451,   460,   461,   470,   471,   481,
+     482,   490,   491,   499,   500,   513,   514,   526,   527,   538,
+     539,   550,   558,   566,   575,   577,   586
   };
 
   void
@@ -2610,9 +2523,9 @@ namespace yy {
 
 
 } // yy
-#line 2614 "/home/compiler/build/parser.cc"
+#line 2527 "/home/compiler/build/parser.cc"
 
-#line 681 "parser.yy"
+#line 595 "parser.yy"
 
 
 void

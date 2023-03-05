@@ -129,6 +129,30 @@ compiler/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/build
 .PHONY : compiler/fast
 
+ast.o: ast.cc.o
+.PHONY : ast.o
+
+# target to build an object file
+ast.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/ast.cc.o
+.PHONY : ast.cc.o
+
+ast.i: ast.cc.i
+.PHONY : ast.i
+
+# target to preprocess a source file
+ast.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/ast.cc.i
+.PHONY : ast.cc.i
+
+ast.s: ast.cc.s
+.PHONY : ast.s
+
+# target to generate assembly for a file
+ast.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/ast.cc.s
+.PHONY : ast.cc.s
+
 driver.o: driver.cc.o
 .PHONY : driver.o
 
@@ -176,6 +200,30 @@ main.s: main.cc.s
 main.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/main.cc.s
 .PHONY : main.cc.s
+
+node.o: node.cc.o
+.PHONY : node.o
+
+# target to build an object file
+node.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/node.cc.o
+.PHONY : node.cc.o
+
+node.i: node.cc.i
+.PHONY : node.i
+
+# target to preprocess a source file
+node.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/node.cc.i
+.PHONY : node.cc.i
+
+node.s: node.cc.s
+.PHONY : node.s
+
+# target to generate assembly for a file
+node.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/node.cc.s
+.PHONY : node.cc.s
 
 parser.o: parser.cc.o
 .PHONY : parser.o
@@ -234,12 +282,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... compiler"
+	@echo "... ast.o"
+	@echo "... ast.i"
+	@echo "... ast.s"
 	@echo "... driver.o"
 	@echo "... driver.i"
 	@echo "... driver.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... node.o"
+	@echo "... node.i"
+	@echo "... node.s"
 	@echo "... parser.o"
 	@echo "... parser.i"
 	@echo "... parser.s"

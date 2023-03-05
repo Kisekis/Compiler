@@ -49,9 +49,10 @@
 
   # include <string>
   class driver;
-  struct Node;
+  class Node;
+  class AST;
 
-#line 55 "/home/compiler/build/parser.hh"
+#line 56 "/home/compiler/build/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -191,7 +192,7 @@
 #endif
 
 namespace yy {
-#line 195 "/home/compiler/build/parser.hh"
+#line 196 "/home/compiler/build/parser.hh"
 
 
 
@@ -1988,7 +1989,7 @@ switch (yykind)
   }
 
 } // yy
-#line 1992 "/home/compiler/build/parser.hh"
+#line 1993 "/home/compiler/build/parser.hh"
 
 
 
