@@ -201,6 +201,30 @@ main.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/main.cc.s
 .PHONY : main.cc.s
 
+my_hash_table.o: my_hash_table.cc.o
+.PHONY : my_hash_table.o
+
+# target to build an object file
+my_hash_table.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/my_hash_table.cc.o
+.PHONY : my_hash_table.cc.o
+
+my_hash_table.i: my_hash_table.cc.i
+.PHONY : my_hash_table.i
+
+# target to preprocess a source file
+my_hash_table.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/my_hash_table.cc.i
+.PHONY : my_hash_table.cc.i
+
+my_hash_table.s: my_hash_table.cc.s
+.PHONY : my_hash_table.s
+
+# target to generate assembly for a file
+my_hash_table.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/my_hash_table.cc.s
+.PHONY : my_hash_table.cc.s
+
 node.o: node.cc.o
 .PHONY : node.o
 
@@ -273,6 +297,54 @@ scanner.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/scanner.cc.s
 .PHONY : scanner.cc.s
 
+semantic.o: semantic.cc.o
+.PHONY : semantic.o
+
+# target to build an object file
+semantic.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/semantic.cc.o
+.PHONY : semantic.cc.o
+
+semantic.i: semantic.cc.i
+.PHONY : semantic.i
+
+# target to preprocess a source file
+semantic.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/semantic.cc.i
+.PHONY : semantic.cc.i
+
+semantic.s: semantic.cc.s
+.PHONY : semantic.s
+
+# target to generate assembly for a file
+semantic.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/semantic.cc.s
+.PHONY : semantic.cc.s
+
+symbol.o: symbol.cc.o
+.PHONY : symbol.o
+
+# target to build an object file
+symbol.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/symbol.cc.o
+.PHONY : symbol.cc.o
+
+symbol.i: symbol.cc.i
+.PHONY : symbol.i
+
+# target to preprocess a source file
+symbol.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/symbol.cc.i
+.PHONY : symbol.cc.i
+
+symbol.s: symbol.cc.s
+.PHONY : symbol.s
+
+# target to generate assembly for a file
+symbol.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/compiler.dir/build.make CMakeFiles/compiler.dir/symbol.cc.s
+.PHONY : symbol.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -291,6 +363,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... my_hash_table.o"
+	@echo "... my_hash_table.i"
+	@echo "... my_hash_table.s"
 	@echo "... node.o"
 	@echo "... node.i"
 	@echo "... node.s"
@@ -300,6 +375,12 @@ help:
 	@echo "... scanner.o"
 	@echo "... scanner.i"
 	@echo "... scanner.s"
+	@echo "... semantic.o"
+	@echo "... semantic.i"
+	@echo "... semantic.s"
+	@echo "... symbol.o"
+	@echo "... symbol.i"
+	@echo "... symbol.s"
 .PHONY : help
 
 

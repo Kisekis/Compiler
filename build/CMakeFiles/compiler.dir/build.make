@@ -136,11 +136,53 @@ CMakeFiles/compiler.dir/node.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compiler.dir/node.cc.s"
 	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/compiler/node.cc -o CMakeFiles/compiler.dir/node.cc.s
 
+CMakeFiles/compiler.dir/symbol.cc.o: CMakeFiles/compiler.dir/flags.make
+CMakeFiles/compiler.dir/symbol.cc.o: /home/compiler/symbol.cc
+CMakeFiles/compiler.dir/symbol.cc.o: CMakeFiles/compiler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/compiler.dir/symbol.cc.o"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/compiler.dir/symbol.cc.o -MF CMakeFiles/compiler.dir/symbol.cc.o.d -o CMakeFiles/compiler.dir/symbol.cc.o -c /home/compiler/symbol.cc
+
+CMakeFiles/compiler.dir/symbol.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compiler.dir/symbol.cc.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/compiler/symbol.cc > CMakeFiles/compiler.dir/symbol.cc.i
+
+CMakeFiles/compiler.dir/symbol.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compiler.dir/symbol.cc.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/compiler/symbol.cc -o CMakeFiles/compiler.dir/symbol.cc.s
+
+CMakeFiles/compiler.dir/semantic.cc.o: CMakeFiles/compiler.dir/flags.make
+CMakeFiles/compiler.dir/semantic.cc.o: /home/compiler/semantic.cc
+CMakeFiles/compiler.dir/semantic.cc.o: CMakeFiles/compiler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/compiler.dir/semantic.cc.o"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/compiler.dir/semantic.cc.o -MF CMakeFiles/compiler.dir/semantic.cc.o.d -o CMakeFiles/compiler.dir/semantic.cc.o -c /home/compiler/semantic.cc
+
+CMakeFiles/compiler.dir/semantic.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compiler.dir/semantic.cc.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/compiler/semantic.cc > CMakeFiles/compiler.dir/semantic.cc.i
+
+CMakeFiles/compiler.dir/semantic.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compiler.dir/semantic.cc.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/compiler/semantic.cc -o CMakeFiles/compiler.dir/semantic.cc.s
+
+CMakeFiles/compiler.dir/my_hash_table.cc.o: CMakeFiles/compiler.dir/flags.make
+CMakeFiles/compiler.dir/my_hash_table.cc.o: /home/compiler/my_hash_table.cc
+CMakeFiles/compiler.dir/my_hash_table.cc.o: CMakeFiles/compiler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/compiler.dir/my_hash_table.cc.o"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/compiler.dir/my_hash_table.cc.o -MF CMakeFiles/compiler.dir/my_hash_table.cc.o.d -o CMakeFiles/compiler.dir/my_hash_table.cc.o -c /home/compiler/my_hash_table.cc
+
+CMakeFiles/compiler.dir/my_hash_table.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compiler.dir/my_hash_table.cc.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/compiler/my_hash_table.cc > CMakeFiles/compiler.dir/my_hash_table.cc.i
+
+CMakeFiles/compiler.dir/my_hash_table.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compiler.dir/my_hash_table.cc.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/compiler/my_hash_table.cc -o CMakeFiles/compiler.dir/my_hash_table.cc.s
+
 CMakeFiles/compiler.dir/scanner.cc.o: CMakeFiles/compiler.dir/flags.make
 CMakeFiles/compiler.dir/scanner.cc.o: scanner.cc
 CMakeFiles/compiler.dir/scanner.cc.o: parser.hh
 CMakeFiles/compiler.dir/scanner.cc.o: CMakeFiles/compiler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/compiler.dir/scanner.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/compiler.dir/scanner.cc.o"
 	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/compiler.dir/scanner.cc.o -MF CMakeFiles/compiler.dir/scanner.cc.o.d -o CMakeFiles/compiler.dir/scanner.cc.o -c /home/compiler/build/scanner.cc
 
 CMakeFiles/compiler.dir/scanner.cc.i: cmake_force
@@ -154,7 +196,7 @@ CMakeFiles/compiler.dir/scanner.cc.s: cmake_force
 CMakeFiles/compiler.dir/parser.cc.o: CMakeFiles/compiler.dir/flags.make
 CMakeFiles/compiler.dir/parser.cc.o: parser.cc
 CMakeFiles/compiler.dir/parser.cc.o: CMakeFiles/compiler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/compiler.dir/parser.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/compiler.dir/parser.cc.o"
 	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/compiler.dir/parser.cc.o -MF CMakeFiles/compiler.dir/parser.cc.o.d -o CMakeFiles/compiler.dir/parser.cc.o -c /home/compiler/build/parser.cc
 
 CMakeFiles/compiler.dir/parser.cc.i: cmake_force
@@ -171,6 +213,9 @@ compiler_OBJECTS = \
 "CMakeFiles/compiler.dir/driver.cc.o" \
 "CMakeFiles/compiler.dir/ast.cc.o" \
 "CMakeFiles/compiler.dir/node.cc.o" \
+"CMakeFiles/compiler.dir/symbol.cc.o" \
+"CMakeFiles/compiler.dir/semantic.cc.o" \
+"CMakeFiles/compiler.dir/my_hash_table.cc.o" \
 "CMakeFiles/compiler.dir/scanner.cc.o" \
 "CMakeFiles/compiler.dir/parser.cc.o"
 
@@ -181,11 +226,14 @@ compiler: CMakeFiles/compiler.dir/main.cc.o
 compiler: CMakeFiles/compiler.dir/driver.cc.o
 compiler: CMakeFiles/compiler.dir/ast.cc.o
 compiler: CMakeFiles/compiler.dir/node.cc.o
+compiler: CMakeFiles/compiler.dir/symbol.cc.o
+compiler: CMakeFiles/compiler.dir/semantic.cc.o
+compiler: CMakeFiles/compiler.dir/my_hash_table.cc.o
 compiler: CMakeFiles/compiler.dir/scanner.cc.o
 compiler: CMakeFiles/compiler.dir/parser.cc.o
 compiler: CMakeFiles/compiler.dir/build.make
 compiler: CMakeFiles/compiler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable compiler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/compiler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable compiler"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/compiler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

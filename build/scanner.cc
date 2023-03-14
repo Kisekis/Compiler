@@ -1128,7 +1128,7 @@ YY_RULE_SETUP
 case 22:
 YY_RULE_SETUP
 #line 72 "scanner.ll"
-{return yy::parser::make_RELOP(loc);}
+{return yy::parser::make_RELOP(yytext, loc);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP

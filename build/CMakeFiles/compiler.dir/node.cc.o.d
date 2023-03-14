@@ -122,4 +122,9 @@ CMakeFiles/compiler.dir/node.cc.o: /home/compiler/node.cc \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
- /usr/include/c++/9/bits/basic_string.tcc
+ /usr/include/c++/9/bits/basic_string.tcc /usr/include/c++/9/variant \
+ /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h \
+ /usr/include/c++/9/bits/enable_special_members.h \
+ /usr/include/c++/9/bits/invoke.h /usr/include/c++/9/ext/aligned_buffer.h \
+ /usr/include/c++/9/bits/parse_numbers.h \
+ /usr/include/c++/9/bits/stl_construct.h

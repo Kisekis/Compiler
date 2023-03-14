@@ -48,11 +48,12 @@
 #line 11 "parser.yy"
 
   # include <string>
+  #include <variant>
   class driver;
   class Node;
   class AST;
 
-#line 56 "/home/compiler/build/parser.hh"
+#line 57 "/home/compiler/build/parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -192,7 +193,7 @@
 #endif
 
 namespace yy {
-#line 196 "/home/compiler/build/parser.hh"
+#line 197 "/home/compiler/build/parser.hh"
 
 
 
@@ -442,6 +443,7 @@ namespace yy {
 
       // ID
       // TYPE
+      // RELOP
       char dummy4[sizeof (std::string)];
     };
 
@@ -498,10 +500,10 @@ namespace yy {
     TOK_FLOAT = 4,                 // "float"
     TOK_ID = 5,                    // ID
     TOK_TYPE = 6,                  // TYPE
-    TOK_SEMI = 7,                  // SEMI
-    TOK_COMMA = 8,                 // COMMA
-    TOK_ASSIGNOP = 9,              // ASSIGNOP
-    TOK_RELOP = 10,                // RELOP
+    TOK_RELOP = 7,                 // RELOP
+    TOK_SEMI = 8,                  // SEMI
+    TOK_COMMA = 9,                 // COMMA
+    TOK_ASSIGNOP = 10,             // ASSIGNOP
     TOK_PLUS = 11,                 // PLUS
     TOK_MINUS = 12,                // MINUS
     TOK_STAR = 13,                 // STAR
@@ -547,10 +549,10 @@ namespace yy {
         S_FLOAT = 4,                             // "float"
         S_ID = 5,                                // ID
         S_TYPE = 6,                              // TYPE
-        S_SEMI = 7,                              // SEMI
-        S_COMMA = 8,                             // COMMA
-        S_ASSIGNOP = 9,                          // ASSIGNOP
-        S_RELOP = 10,                            // RELOP
+        S_RELOP = 7,                             // RELOP
+        S_SEMI = 8,                              // SEMI
+        S_COMMA = 9,                             // COMMA
+        S_ASSIGNOP = 10,                         // ASSIGNOP
         S_PLUS = 11,                             // PLUS
         S_MINUS = 12,                            // MINUS
         S_STAR = 13,                             // STAR
@@ -663,6 +665,7 @@ namespace yy {
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_TYPE: // TYPE
+      case symbol_kind::S_RELOP: // RELOP
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -801,6 +804,7 @@ switch (yykind)
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_TYPE: // TYPE
+      case symbol_kind::S_RELOP: // RELOP
         value.template destroy< std::string > ();
         break;
 
@@ -937,7 +941,7 @@ switch (yykind)
 #endif
       {
 #if !defined _MSC_VER || defined __clang__
-        YY_ASSERT ((token::TOK_ID <= tok && tok <= token::TOK_TYPE));
+        YY_ASSERT ((token::TOK_ID <= tok && tok <= token::TOK_RELOP));
 #endif
       }
     };
@@ -1096,6 +1100,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_RELOP (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_RELOP, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RELOP (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_RELOP, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_SEMI (location_type l)
       {
         return symbol_type (token::TOK_SEMI, std::move (l));
@@ -1136,21 +1155,6 @@ switch (yykind)
       make_ASSIGNOP (const location_type& l)
       {
         return symbol_type (token::TOK_ASSIGNOP, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_RELOP (location_type l)
-      {
-        return symbol_type (token::TOK_RELOP, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_RELOP (const location_type& l)
-      {
-        return symbol_type (token::TOK_RELOP, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1797,7 +1801,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 434,     ///< Last index in yytable_.
+      yylast_ = 443,     ///< Last index in yytable_.
       yynnts_ = 22,  ///< Number of nonterminal symbols.
       yyfinal_ = 11 ///< Termination state number.
     };
@@ -1858,6 +1862,7 @@ switch (yykind)
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_TYPE: // TYPE
+      case symbol_kind::S_RELOP: // RELOP
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1924,6 +1929,7 @@ switch (yykind)
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_TYPE: // TYPE
+      case symbol_kind::S_RELOP: // RELOP
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1989,7 +1995,7 @@ switch (yykind)
   }
 
 } // yy
-#line 1993 "/home/compiler/build/parser.hh"
+#line 1999 "/home/compiler/build/parser.hh"
 
 
 

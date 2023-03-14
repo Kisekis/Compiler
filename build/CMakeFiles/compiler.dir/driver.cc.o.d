@@ -133,9 +133,11 @@ CMakeFiles/compiler.dir/driver.cc.o: /home/compiler/driver.cc \
  /usr/include/c++/9/array /usr/include/c++/9/bits/uses_allocator.h \
  /usr/include/c++/9/bits/invoke.h /usr/include/c++/9/bits/stl_multimap.h \
  /usr/include/c++/9/bits/erase_if.h /home/compiler/build/parser.hh \
- /usr/include/c++/9/cassert /usr/include/assert.h \
- /usr/include/c++/9/iostream /usr/include/c++/9/ostream \
- /usr/include/c++/9/ios /usr/include/c++/9/bits/ios_base.h \
+ /usr/include/c++/9/variant /usr/include/c++/9/bits/parse_numbers.h \
+ /usr/include/c++/9/bits/stl_construct.h /usr/include/c++/9/cassert \
+ /usr/include/assert.h /usr/include/c++/9/iostream \
+ /usr/include/c++/9/ostream /usr/include/c++/9/ios \
+ /usr/include/c++/9/bits/ios_base.h \
  /usr/include/c++/9/bits/locale_classes.h \
  /usr/include/c++/9/bits/locale_classes.tcc \
  /usr/include/c++/9/system_error \
@@ -151,7 +153,6 @@ CMakeFiles/compiler.dir/driver.cc.o: /home/compiler/driver.cc \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
  /usr/include/c++/9/bits/istream.tcc /usr/include/c++/9/vector \
- /usr/include/c++/9/bits/stl_construct.h \
  /usr/include/c++/9/bits/stl_uninitialized.h \
  /usr/include/c++/9/bits/stl_vector.h \
  /usr/include/c++/9/bits/stl_bvector.h /usr/include/c++/9/bits/vector.tcc \

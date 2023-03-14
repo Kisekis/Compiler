@@ -68,7 +68,7 @@ extern int yylineno;
 ";"	{return yy::parser::make_SEMI(loc);}
 "," {return yy::parser::make_COMMA(loc);}
 "=" {return yy::parser::make_ASSIGNOP(loc);}
-">"|"<"|">="|"<="|"=="|"!=" {return yy::parser::make_RELOP(loc);}
+">"|"<"|">="|"<="|"=="|"!=" {return yy::parser::make_RELOP(yytext, loc);}
 "+" {return yy::parser::make_PLUS(loc);}
 "-" {return yy::parser::make_MINUS  (loc);}
 "*" {return yy::parser::make_STAR(loc);}

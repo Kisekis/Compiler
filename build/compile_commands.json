@@ -1,32 +1,47 @@
 [
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/main.cc.o -c /home/compiler/main.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/main.cc.o -c /home/compiler/main.cc",
   "file": "/home/compiler/main.cc"
 },
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/driver.cc.o -c /home/compiler/driver.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/driver.cc.o -c /home/compiler/driver.cc",
   "file": "/home/compiler/driver.cc"
 },
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/ast.cc.o -c /home/compiler/ast.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/ast.cc.o -c /home/compiler/ast.cc",
   "file": "/home/compiler/ast.cc"
 },
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/node.cc.o -c /home/compiler/node.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/node.cc.o -c /home/compiler/node.cc",
   "file": "/home/compiler/node.cc"
 },
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/scanner.cc.o -c /home/compiler/build/scanner.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/symbol.cc.o -c /home/compiler/symbol.cc",
+  "file": "/home/compiler/symbol.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/semantic.cc.o -c /home/compiler/semantic.cc",
+  "file": "/home/compiler/semantic.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/my_hash_table.cc.o -c /home/compiler/my_hash_table.cc",
+  "file": "/home/compiler/my_hash_table.cc"
+},
+{
+  "directory": "/home/compiler/build",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/scanner.cc.o -c /home/compiler/build/scanner.cc",
   "file": "/home/compiler/build/scanner.cc"
 },
 {
   "directory": "/home/compiler/build",
-  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g -std=gnu++17 -o CMakeFiles/compiler.dir/parser.cc.o -c /home/compiler/build/parser.cc",
+  "command": "/usr/bin/g++-9  -I/home/compiler -I/home/compiler/build -g   -g -std=gnu++17 -o CMakeFiles/compiler.dir/parser.cc.o -c /home/compiler/build/parser.cc",
   "file": "/home/compiler/build/parser.cc"
 }
 ]

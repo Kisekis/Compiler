@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/compiler -I/home/compiler/build
 
-CXX_FLAGS = -g -std=gnu++17
+CXX_FLAGS = -g   -g -std=gnu++17
 
